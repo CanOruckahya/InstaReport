@@ -1,34 +1,34 @@
-# Instagram Rapor 3.0
+# Instagram Report 3.0
 
-Instagram verilerinizi analiz eden ve takipçi değişimlerini takip eden modern bir Python uygulaması.
+A modern Python application that analyzes your Instagram data and tracks follower changes.
 
-## Özellikler
+## Features
 
-- 📊 **Takipçi Analizi**: Gelen ve giden takipçileri karşılaştırmalı analiz
-- 🎨 **Modern UI**: Karanlık/Açık tema desteği ile modern arayüz
-- 📈 **Grafik Görselleştirme**: Takipçi değişimlerini grafik olarak gösterim
-- 🔍 **Detaylı Listeler**: 
-  - Beni geri takip etmeyenler
-  - Benim geri takip etmediklerim
-  - Yakın arkadaşlar
-  - Favoriler
-  - Engellenenler
-  - Kısıtlananlar
-  - Gelen/Gönderilen istekler
-  - Kaldırılan öneriler
-  - Çıkan takipçiler
-- 📅 **Tarih Takibi**: Takipçi değişimlerini tarih bazında takip
-- 🔄 **Otomatik Güncelleme**: Yeni Instagram verilerini otomatik algılama
+- 📊 **Follower Analysis**: Comparative analysis of incoming and outgoing followers
+- 🎨 **Modern UI**: Modern interface with dark/light theme support
+- 📈 **Graph Visualization**: Graphical display of follower changes
+- 🔍 **Detailed Lists**: 
+  - People you follow but don't follow you back
+  - People who follow you but you don't follow back
+  - Close friends
+  - Favorites
+  - Blocked profiles
+  - Restricted profiles
+  - Incoming/Outgoing requests
+  - Removed suggestions
+  - Recently unfollowed profiles
+- 📅 **Date Tracking**: Track follower changes by date
+- 🔄 **Auto Update**: Automatically detect new Instagram data
 
-## Kurulum
+## Installation
 
-### Gereksinimler
+### Requirements
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Gerekli Kütüphaneler
+### Required Libraries
 
 ```
 tkinter
@@ -37,57 +37,57 @@ matplotlib
 pillow
 ```
 
-## Kullanım
+## Usage
 
-1. Instagram'dan veri indirin (ZIP formatında)
-2. ZIP dosyasını Downloads klasörüne koyun
-3. Uygulamayı çalıştırın:
+1. Download data from Instagram (ZIP format)
+2. Place the ZIP file in your Downloads folder
+3. Run the application:
 
 ```bash
 python app.py
 ```
 
-## Özellikler Detayı
+## Feature Details
 
-### Ana Sekmeler
-- **Beni Geri Takip Etmeyenler**: Takip ettiğiniz ama sizi takip etmeyen kullanıcılar
-- **Benim Geri Takip Etmediklerim**: Sizi takip eden ama siz takip etmediğiniz kullanıcılar
-- **Yakın Arkadaşlar**: Yakın arkadaş listeniz
-- **Favoriler**: Favori profilleriniz
-- **Takipçi Analizi**: Takipçi değişimlerinin grafiksel analizi
+### Main Tabs
+- **People You Follow But Don't Follow You Back**: Users you follow but who don't follow you
+- **People Who Follow You But You Don't Follow Back**: Users who follow you but you don't follow
+- **Close Friends**: Your close friends list
+- **Favorites**: Your favorite profiles
+- **Follower Analysis**: Graphical analysis of follower changes
 
-### Diğer Sekmeler
-- Engellenen profiller
-- Kısıtlanan profiller
-- Gelen takip istekleri
-- Gönderilen takip istekleri
-- Kaldırılan öneriler
-- Son zamanlarda çıkan takipçiler
+### Other Tabs
+- Blocked profiles
+- Restricted profiles
+- Incoming follow requests
+- Outgoing follow requests
+- Removed suggestions
+- Recently unfollowed profiles
 
-### Sıralama Seçenekleri
-- Yeniden Eskiye
-- Eskiden Yeniye
-- A'dan Z'ye
-- Z'den A'ya
+### Sorting Options
+- Newest to Oldest
+- Oldest to Newest
+- A to Z
+- Z to A
 
-## Tema Desteği
+## Theme Support
 
-Uygulama otomatik olarak sistem temasını algılar ve uygun temayı uygular:
-- **Açık Tema**: Modern, temiz görünüm
-- **Karanlık Tema**: Göz yorgunluğunu azaltan koyu tema
+The application automatically detects your system theme and applies the appropriate theme:
+- **Light Theme**: Modern, clean appearance
+- **Dark Theme**: Dark theme that reduces eye strain
 
-## Geliştirici
+## Developer
 
-**Can Oruckahya** - Instagram Rapor 3.0
+**Can Oruckahya** - Instagram Report 3.0
 
-## Lisans
+## License
 
-Bu proje MIT lisansı altında lisanslanmıştır.
+This project is licensed under the MIT License.
 
-## Katkıda Bulunma
+## Contributing
 
-1. Fork yapın
-2. Feature branch oluşturun (`git checkout -b feature/AmazingFeature`)
-3. Commit yapın (`git commit -m 'Add some AmazingFeature'`)
-4. Push yapın (`git push origin feature/AmazingFeature`)
-5. Pull Request açın 
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request 
