@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ report.username }} — InstaRapor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body class="page-report">
+  <div class="atmosphere atmosphere-soft" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('index') }}">InstaRapor</a>
+    <nav class="topbar-actions">
+      <a class="btn-ghost" href="{{ url_for('index') }}">Yeni ZIP</a>
+      <a class="btn-ghost" href="{{ url_for('clear') }}">Temizle</a>
+    </nav>
+  </header>
+
+  <main class="report">
+    <section class="report-hero">
+      <p class="brand-mark">InstaRapor</p>
+      <h1>@{{ report.username }}</h1>
+      <p class="lede">Analiz: {{ report.analyzed_at }} · Takipçi {{ report.counts.get('Takipçiler', 0) }} · Takip {{ report.counts.get('Takip Ettiklerim', 0) }}</p>
+
+      <div class="stat-strip" role="group" aria-label="Özet">
+        <div>
+          <strong>{{ report.counts.get('Beni Geri Takip Etmeyenler', 0) }}</strong>
+          <span>geri takip yok</span>
+        </div>
+        <div>
+          <strong>{{ report.counts.get('Benim Geri Takip Etmediklerim', 0) }}</strong>
+          <span>sen takip etmiyorsun</span>
+        </div>
+        <div>
+          <strong>{{ report.counts.get('Çıkan Takipçiler', 0) }}</strong>
+          <span>yakın zamanda çıkan</span>
+        </div>
+        {% if report.comparison and not report.comparison.is_first %}
+        <div>
+          <strong class="pos">+{{ report.comparison.gained_count }}</strong>
+          <span>yeni (önceki rapora göre)</span>
+        </div>
+        <div>
+          <strong class="neg">−{{ report.comparison.lost_count }}</strong>
+          <span>giden (önceki rapora göre)</span>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+
+    {% if report.comparison %}
+    <section class="panel" id="delta">
+      <div class="panel-head">
+        <h2>Takipçi değişimi</h2>
+        {% if report.comparison.is_first %}
+          <p>İlk kayıt alındı. Bir sonraki ZIP yüklemesinde karşılaştırma burada görünür.</p>
+        {% else %}
+          <p>Önceki kayıt: {{ report.comparison.previous_date }} ({{ report.comparison.previous_count }} takipçi)</p>
+        {% endif %}
+      </div>
+
+      {% if not report.comparison.is_first %}
+      <div class="delta-grid">
+        <div>
+          <h3>Gelen ({{ report.comparison.gained_count }})</h3>
+          {% if report.comparison.gained %}
+          <ul class="user-list compact">
+            {% for u in report.comparison.gained %}
+              <li><a href="https://www.instagram.com/{{ u }}/" target="_blank" rel="noopener">{{ u }}</a></li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p class="empty">Yeni takipçi yok.</p>
+          {% endif %}
+        </div>
+        <div>
+          <h3>Giden ({{ report.comparison.lost_count }})</h3>
+          {% if report.comparison.lost %}
+          <ul class="user-list compact">
+            {% for u in report.comparison.lost %}
+              <li><a href="https://www.instagram.com/{{ u }}/" target="_blank" rel="noopener">{{ u }}</a></li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p class="empty">Giden takipçi yok.</p>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+    </section>
+    {% endif %}
+
+    <section class="panel">
+      <div class="panel-head row">
+        <div>
+          <h2>Listeler</h2>
+          <p>Tıklayınca Instagram profili açılır. Arama ve sıralama anlık çalışır.</p>
+        </div>
+        <div class="list-controls">
+          <input type="search" id="search" placeholder="Kullanıcı ara…" autocomplete="off" />
+          <select id="sort">
+            <option value="newest">Yeniden eskiye</option>
+            <option value="oldest">Eskiden yeniye</option>
+            <option value="az">A → Z</option>
+            <option value="za">Z → A</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="tabs" role="tablist">
+        {% for label, slug in main_tabs %}
+          <button
+            type="button"
+            class="tab {% if loop.first %}is-active{% endif %}"
+            data-tab="{{ slug }}"
+            role="tab"
+            aria-selected="{{ 'true' if loop.first else 'false' }}"
+          >
+            {{ label }}
+            <em>{{ report.counts.get(label, 0) }}</em>
+          </button>
+        {% endfor %}
+        <button type="button" class="tab" data-tab="other" role="tab" aria-selected="false">Diğer</button>
+      </div>
+
+      {% for label, slug in main_tabs %}
+      <div
+        class="tab-panel {% if loop.first %}is-active{% endif %}"
+        id="panel-{{ slug }}"
+        data-panel="{{ slug }}"
+        role="tabpanel"
+      >
+        {% set users = report.lists.get(label, []) %}
+        {% if users %}
+        <ul class="user-list" data-list>
+          {% for u in users %}
+            <li data-username="{{ u.username }}" data-date="{{ u.date }}">
+              <a href="{{ u.url }}" target="_blank" rel="noopener">
+                <span class="uname">{{ u.username }}</span>
+                {% if u.date %}<time>{{ u.date }}</time>{% endif %}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p class="empty">Bu listede kullanıcı yok.</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+
+      <div class="tab-panel" id="panel-other" data-panel="other" role="tabpanel" hidden>
+        <div class="other-nav">
+          {% for label, slug in other_tabs %}
+            <button type="button" class="chip {% if loop.first %}is-active{% endif %}" data-other="{{ slug }}">
+              {{ label }} <em>{{ report.counts.get(label, 0) }}</em>
+            </button>
+          {% endfor %}
+        </div>
+        {% for label, slug in other_tabs %}
+        <div class="other-panel {% if loop.first %}is-active{% endif %}" data-other-panel="{{ slug }}">
+          {% set users = report.lists.get(label, []) %}
+          {% if users %}
+          <ul class="user-list" data-list>
+            {% for u in users %}
+              <li data-username="{{ u.username }}" data-date="{{ u.date }}">
+                <a href="{{ u.url }}" target="_blank" rel="noopener">
+                  <span class="uname">{{ u.username }}</span>
+                  {% if u.date %}<time>{{ u.date }}</time>{% endif %}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p class="empty">Bu listede kullanıcı yok.</p>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    {% if report.files_found %}
+    <details class="debug">
+      <summary>ZIP’te bulunan {{ report.files_found|length }} dosya</summary>
+      <ul>
+        {% for f in report.files_found %}
+          <li><code>{{ f }}</code></li>
+        {% endfor %}
+      </ul>
+    </details>
+    {% endif %}
+  </main>
+
+  <footer class="site-footer">
+    <span>InstaRapor · Can Oruckahya</span>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
