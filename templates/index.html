@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>InstaRapor — Takipçi Analizi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body class="page-home">
+  <div class="atmosphere" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('index') }}">InstaRapor</a>
+    <span class="topbar-note">ZIP ile yerel analiz</span>
+  </header>
+
+  <main class="hero">
+    <p class="brand-mark">InstaRapor</p>
+    <h1>Takipçi ve takibi bırakanları net gör.</h1>
+    <p class="lede">
+      Instagram’dan indirdiğin veri arşivini yükle — seni takip etmeyenler,
+      senin takip etmediklerin ve giden takipçiler anında listelenir.
+    </p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flash-list">
+          {% for category, message in messages %}
+            <li class="flash flash-{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form class="upload-form" action="{{ url_for('analyze') }}" method="post" enctype="multipart/form-data">
+      <label class="dropzone" id="dropzone">
+        <input type="file" name="zipfile" id="zipfile" accept=".zip,application/zip" required />
+        <span class="dropzone-title">Instagram ZIP dosyanı seç</span>
+        <span class="dropzone-sub" id="file-label">veya buraya sürükle · HTML / JSON desteklenir</span>
+      </label>
+
+      <label class="check-row">
+        <input type="checkbox" name="save_history" checked />
+        <span>Bu takipçi listesini kaydet — sonraki yüklemede gelen / gidenleri karşılaştır</span>
+      </label>
+
+      <div class="cta-row">
+        <button type="submit" class="btn-primary">Analizi Başlat</button>
+      </div>
+    </form>
+
+    <ol class="howto">
+      <li>Instagram → Ayarlar → Merkezin → Bilgilerinizi indirin</li>
+      <li>Bilgileri indir → en azından “Bağlantılar” / takipçi verisini seç</li>
+      <li>Gelen ZIP’i buraya yükle</li>
+    </ol>
+  </main>
+
+  <footer class="site-footer">
+    <span>InstaRapor · Can Oruckahya</span>
+    <span>Veriler tarayıcı oturumunda kalır; Instagram’a giriş istenmez.</span>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
