@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Insta Rapor 3.1 - Tek Tıkla Tarayıcı Asistanı Kurulumu</title>
+    <style>
+        :root {
+            --bg: #0f141c;
+            --card: #181f2a;
+            --border: #2a3444;
+            --text: #eef2f7;
+            --muted: #9aa5b5;
+            --primary: #3a5ca8;
+            --primary-hover: #4970c4;
+            --green: #009975;
+            --green-hover: #00b388;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            padding: 32px 16px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+        }
+        h1 {
+            margin: 0 0 8px;
+            font-size: 24px;
+            color: #7ecfff;
+        }
+        .subtitle {
+            margin: 0 0 22px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+        .drag-box {
+            background: rgba(58, 92, 168, 0.14);
+            border: 2px dashed #4970c4;
+            border-radius: 14px;
+            padding: 22px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .drag-hint {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+        .bookmarklet-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), #5a3aa8);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 12px 24px;
+            border-radius: 999px;
+            cursor: grab;
+            box-shadow: 0 6px 18px rgba(58, 92, 168, 0.45);
+            user-select: none;
+        }
+        .bookmarklet-btn:hover {
+            background: linear-gradient(135deg, var(--primary-hover), #6b49c4);
+        }
+        .steps {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+        .step {
+            background: #131922;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 16px;
+        }
+        .step h3 {
+            margin: 0 0 4px;
+            font-size: 15px;
+            color: #7ecfff;
+        }
+        .step p {
+            margin: 0;
+            font-size: 14px;
+            color: #d7e0eb;
+        }
+        kbd {
+            background: #232c3b;
+            border: 1px solid #39465c;
+            border-radius: 5px;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-family: Consolas, monospace;
+        }
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        .btn {
+            border: none;
+            border-radius: 10px;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            color: #fff;
+        }
+        .btn-copy { background: var(--green); }
+        .btn-copy:hover { background: var(--green-hover); }
+        .btn-ig { background: #293345; }
+        .btn-ig:hover { background: #36435a; }
+        .status {
+            font-size: 13px;
+            color: #00d2a0;
+            font-weight: 600;
+        }
+        .safety {
+            margin-top: 20px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            background: rgba(0, 153, 117, 0.12);
+            border: 1px solid rgba(0, 153, 117, 0.35);
+            font-size: 13px;
+            color: #bceee0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛡️ Insta Rapor 3.1 — F12'siz Tek Tık Kurulum</h1>
+        <p class="subtitle">
+            Her ay F12 konsoluyla uğraşmamak için aşağıdaki yer imi butonunu tarayıcınıza bir kez ekleyin.
+        </p>
+
+        <div class="drag-box">
+            <div class="drag-hint">
+                👆 Önce <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> ile Yer İmleri Çubuğunu açın, ardından bu butonu tutup çubuğa sürükleyin:
+            </div>
+            <a id="bookmarklet-link" class="bookmarklet-btn" draggable="true" href="javascript:(function%20()%20%7B%0A%22use%20strict%22%3B%0Aconst%20PANEL_ID%20%3D%20%22insta-check-safe-panel%22%3B%0Aconst%20EXISTING%20%3D%20document.getElementById(PANEL_ID)%3B%0Aif%20(EXISTING)%20%7B%0AEXISTING.remove()%3B%0A%7D%0Aif%20(!location.hostname.includes(%22instagram.com%22))%20%7B%0Aalert(%22L%C3%BCtfen%20bu%20kodu%20https%3A%2F%2Fwww.instagram.com%2F%20a%C3%A7%C4%B1kken%20%C3%A7al%C4%B1%C5%9Ft%C4%B1r%C4%B1n.%22)%3B%0Areturn%3B%0A%7D%0Aconst%20CONFIG%20%3D%20%7B%0AAPI_MIN_DELAY_MS%3A%202200%2C%0AAPI_MAX_DELAY_MS%3A%204500%2C%0ADOM_MIN_DELAY_MS%3A%201800%2C%0ADOM_MAX_DELAY_MS%3A%203500%2C%0ABREAK_EVERY_STEPS%3A%205%2C%0ABREAK_MIN_MS%3A%206000%2C%0ABREAK_MAX_MS%3A%209000%2C%0AMAX_STEPS_PER_RUN%3A%20100%2C%0APAGE_SIZE%3A%2024%2C%0AIG_APP_ID%3A%20%22936619743392459%22%0A%7D%3B%0Aconst%20RESERVED_PATHS%20%3D%20new%20Set(%5B%0A%22explore%22%2C%20%22reels%22%2C%20%22reel%22%2C%20%22direct%22%2C%20%22stories%22%2C%20%22accounts%22%2C%0A%22p%22%2C%20%22tv%22%2C%20%22tags%22%2C%20%22locations%22%2C%20%22about%22%2C%20%22legal%22%2C%20%22privacy%22%2C%0A%22terms%22%2C%20%22directory%22%2C%20%22developer%22%2C%20%22challenge%22%2C%20%22oauth%22%2C%20%22nametag%22%2C%0A%22your_activity%22%2C%20%22settings%22%2C%20%22archive%22%0A%5D)%3B%0Aconst%20state%20%3D%20%7B%0Arunning%3A%20false%2C%0AabortRequested%3A%20false%2C%0Ausername%3A%20detectUsername()%2C%0Afollowers%3A%20new%20Map()%2C%0Afollowing%3A%20new%20Map()%2C%0AexpectedFollowers%3A%20null%2C%0AexpectedFollowing%3A%20null%0A%7D%3B%0Afunction%20getCookie(name)%20%7B%0Aconst%20prefix%20%3D%20%60%24%7Bname%7D%3D%60%3B%0Aconst%20parts%20%3D%20document.cookie.split(%22%3B%22)%3B%0Afor%20(const%20rawPart%20of%20parts)%20%7B%0Aconst%20part%20%3D%20rawPart.trim()%3B%0Aif%20(part.startsWith(prefix))%20%7B%0Areturn%20decodeURIComponent(part.slice(prefix.length))%3B%0A%7D%0A%7D%0Areturn%20null%3B%0A%7D%0Afunction%20detectUsername()%20%7B%0Aconst%20pathMatch%20%3D%20location.pathname.match(%2F%5E%5C%2F(%5BA-Za-z0-9._%5D%2B)%5C%2F%3F%24%2F)%3B%0Aif%20(pathMatch%20%26%26%20!RESERVED_PATHS.has(pathMatch%5B1%5D.toLowerCase()))%20%7B%0Areturn%20pathMatch%5B1%5D%3B%0A%7D%0Aconst%20navLinks%20%3D%20document.querySelectorAll(%27a%5Bhref%5E%3D%22%2F%22%5D%27)%3B%0Afor%20(const%20link%20of%20navLinks)%20%7B%0Aconst%20href%20%3D%20link.getAttribute(%22href%22)%20%7C%7C%20%22%22%3B%0Aconst%20m%20%3D%20href.match(%2F%5E%5C%2F(%5BA-Za-z0-9._%5D%2B)%5C%2F%24%2F)%3B%0Aif%20(!m)%20continue%3B%0Aconst%20candidate%20%3D%20m%5B1%5D%3B%0Aif%20(RESERVED_PATHS.has(candidate.toLowerCase()))%20continue%3B%0Aconst%20img%20%3D%20link.querySelector(%22img%5Balt%5D%22)%3B%0Aif%20(img%20%26%26%20img.alt%20%26%26%20!img.alt.toLowerCase().includes(%22instagram%22))%20%7B%0Areturn%20candidate%3B%0A%7D%0A%7D%0Areturn%20%22instagram%22%3B%0A%7D%0Afunction%20formatNowDate(includeTime%20%3D%20false)%20%7B%0Aconst%20d%20%3D%20new%20Date()%3B%0Aconst%20dd%20%3D%20String(d.getDate()).padStart(2%2C%20%220%22)%3B%0Aconst%20mm%20%3D%20String(d.getMonth()%20%2B%201).padStart(2%2C%20%220%22)%3B%0Aconst%20yyyy%20%3D%20d.getFullYear()%3B%0Aif%20(!includeTime)%20%7B%0Areturn%20%60%24%7Bdd%7D.%24%7Bmm%7D.%24%7Byyyy%7D%60%3B%0A%7D%0Aconst%20hh%20%3D%20String(d.getHours()).padStart(2%2C%20%220%22)%3B%0Aconst%20min%20%3D%20String(d.getMinutes()).padStart(2%2C%20%220%22)%3B%0Areturn%20%60%24%7Bdd%7D.%24%7Bmm%7D.%24%7Byyyy%7D%20%24%7Bhh%7D%3A%24%7Bmin%7D%60%3B%0A%7D%0Afunction%20formatFileDate()%20%7B%0Aconst%20d%20%3D%20new%20Date()%3B%0Aconst%20dd%20%3D%20String(d.getDate()).padStart(2%2C%20%220%22)%3B%0Aconst%20mm%20%3D%20String(d.getMonth()%20%2B%201).padStart(2%2C%20%220%22)%3B%0Aconst%20yyyy%20%3D%20d.getFullYear()%3B%0Areturn%20%60%24%7Byyyy%7D-%24%7Bmm%7D-%24%7Bdd%7D%60%3B%0A%7D%0Afunction%20randomInt(min%2C%20max)%20%7B%0Areturn%20Math.floor(Math.random()%20*%20(max%20-%20min%20%2B%201))%20%2B%20min%3B%0A%7D%0Afunction%20sleep(ms)%20%7B%0Areturn%20new%20Promise((resolve)%20%3D%3E%20setTimeout(resolve%2C%20ms))%3B%0A%7D%0Aasync%20function%20sleepWithJitter(minMs%2C%20maxMs%2C%20statusPrefix)%20%7B%0Aconst%20waitMs%20%3D%20randomInt(minMs%2C%20maxMs)%3B%0Aconst%20waitSec%20%3D%20(waitMs%20%2F%201000).toFixed(1)%3B%0Aif%20(statusPrefix)%20%7B%0AsetStatus(%60%24%7BstatusPrefix%7D%20(G%C3%BCvenli%20bekleme%3A%20%24%7BwaitSec%7D%20sn)...%60)%3B%0A%7D%0Alet%20elapsed%20%3D%200%3B%0Awhile%20(elapsed%20%3C%20waitMs)%20%7B%0Aif%20(state.abortRequested)%20return%20waitMs%3B%0Aconst%20chunk%20%3D%20Math.min(250%2C%20waitMs%20-%20elapsed)%3B%0Aawait%20sleep(chunk)%3B%0Aelapsed%20%2B%3D%20chunk%3B%0A%7D%0Areturn%20waitMs%3B%0A%7D%0Afunction%20normalizeEntry(username)%20%7B%0Aconst%20clean%20%3D%20String(username%20%7C%7C%20%22%22).trim().replace(%2F%5E%40%2F%2C%20%22%22)%3B%0Areturn%20%7B%0Ausername%3A%20clean%2C%0Aurl%3A%20%60https%3A%2F%2Fwww.instagram.com%2F%24%7Bclean%7D%60%2C%0Adate%3A%20%60%24%7BformatNowDate(false)%7D%20(Web)%60%0A%7D%3B%0A%7D%0Aconst%20panel%20%3D%20document.createElement(%22div%22)%3B%0Apanel.id%20%3D%20PANEL_ID%3B%0Apanel.style.cssText%20%3D%20%5B%0A%22position%3A%20fixed%22%2C%0A%22right%3A%2018px%22%2C%0A%22bottom%3A%2018px%22%2C%0A%22width%3A%20350px%22%2C%0A%22max-width%3A%20calc(100vw%20-%2036px)%22%2C%0A%22background%3A%20%23181c22%22%2C%0A%22color%3A%20%23eef2f7%22%2C%0A%22border%3A%201px%20solid%20%23303846%22%2C%0A%22border-radius%3A%2012px%22%2C%0A%22box-shadow%3A%200%2010px%2030px%20rgba(0%2C%200%2C%200%2C%200.45)%22%2C%0A%22font-family%3A%20-apple-system%2C%20BlinkMacSystemFont%2C%20%27Segoe%20UI%27%2C%20Roboto%2C%20sans-serif%22%2C%0A%22font-size%3A%2013px%22%2C%0A%22z-index%3A%20999999%22%2C%0A%22padding%3A%2014px%22%2C%0A%22line-height%3A%201.45%22%0A%5D.join(%22%3B%22)%3B%0Apanel.innerHTML%20%3D%20%60%0A%3Cdiv%20style%3D%22display%3Aflex%3Bjustify-content%3Aspace-between%3Balign-items%3Acenter%3Bmargin-bottom%3A8px%3B%22%3E%0A%3Cdiv%20style%3D%22font-weight%3A700%3Bfont-size%3A14px%3Bcolor%3A%237ecfff%3B%22%3E%0A%F0%9F%9B%A1%EF%B8%8F%20Insta%20Rapor%203.1%20(G%C3%BCvenli%20Mod)%0A%3C%2Fdiv%3E%0A%3Cbutton%20id%3D%22ic-close-btn%22%20title%3D%22Paneli%20Kapat%22%0Astyle%3D%22background%3Atransparent%3Bborder%3Anone%3Bcolor%3A%239aa5b1%3Bfont-size%3A16px%3Bcursor%3Apointer%3Bpadding%3A0%204px%3B%22%3E%E2%9C%95%3C%2Fbutton%3E%0A%3C%2Fdiv%3E%0A%3Cdiv%20style%3D%22font-size%3A11px%3Bcolor%3A%239aa5b1%3Bmargin-bottom%3A10px%3B%22%3E%0A%25100%20Sadece%20Okuma%20%E2%80%A2%20Rastgele%20%C4%B0nsani%20Gecikme%20(2.2%E2%80%934.5%20sn)%0A%3C%2Fdiv%3E%0A%3Cdiv%20style%3D%22display%3Aflex%3Bgap%3A8px%3Bmargin-bottom%3A10px%3Bbackground%3A%2323272f%3Bpadding%3A8px%3Bborder-radius%3A8px%3Bfont-size%3A12px%3B%22%3E%0A%3Cdiv%20style%3D%22flex%3A1%3B%22%3ETakip%C3%A7i%3A%20%3Cstrong%20id%3D%22ic-followers-count%22%20style%3D%22color%3A%2300d2a0%3B%22%3E0%3C%2Fstrong%3E%3C%2Fdiv%3E%0A%3Cdiv%20style%3D%22flex%3A1%3B%22%3ETakip%20Edilen%3A%20%3Cstrong%20id%3D%22ic-following-count%22%20style%3D%22color%3A%237ecfff%3B%22%3E0%3C%2Fstrong%3E%3C%2Fdiv%3E%0A%3C%2Fdiv%3E%0A%3Cdiv%20style%3D%22background%3A%2323272f%3Bborder-radius%3A6px%3Bheight%3A8px%3Boverflow%3Ahidden%3Bmargin-bottom%3A8px%3B%22%3E%0A%3Cdiv%20id%3D%22ic-progress-bar%22%20style%3D%22height%3A100%25%3Bwidth%3A0%25%3Bbackground%3A%233a5ca8%3Btransition%3Awidth%200.25s%20ease%3B%22%3E%3C%2Fdiv%3E%0A%3C%2Fdiv%3E%0A%3Cdiv%20id%3D%22ic-status-text%22%20style%3D%22font-size%3A12px%3Bcolor%3A%23d6deeb%3Bmin-height%3A34px%3Bmargin-bottom%3A10px%3B%22%3E%0AHaz%C4%B1r.%20Ba%C5%9Flamak%20i%C3%A7in%20a%C5%9Fa%C4%9F%C4%B1daki%20modlardan%20birini%20se%C3%A7in.%0A%3C%2Fdiv%3E%0A%3Cdiv%20style%3D%22display%3Aflex%3Bflex-direction%3Acolumn%3Bgap%3A6px%3B%22%3E%0A%3Cbutton%20id%3D%22ic-auto-btn%22%0Astyle%3D%22background%3A%233a5ca8%3Bcolor%3A%23fff%3Bborder%3Anone%3Bborder-radius%3A8px%3Bpadding%3A8px%2010px%3Bfont-weight%3A600%3Bcursor%3Apointer%3B%22%3E%0A%E2%9A%A1%20Otomatik%20G%C3%BCvenli%20Okuyucu%20(%C3%96nerilen)%0A%3C%2Fbutton%3E%0A%3Cdiv%20style%3D%22font-size%3A11px%3Bcolor%3A%239aa5b1%3Bmargin-top%3A4px%3B%22%3E%0AYedek%20Mod%20(Profilde%20pencereyi%20a%C3%A7%C4%B1p%20kullan%C4%B1n)%3A%0A%3C%2Fdiv%3E%0A%3Cdiv%20style%3D%22display%3Aflex%3Bgap%3A6px%3B%22%3E%0A%3Cbutton%20id%3D%22ic-dom-followers-btn%22%0Astyle%3D%22flex%3A1%3Bbackground%3A%232a313c%3Bcolor%3A%23e0e6f0%3Bborder%3A1px%20solid%20%233c4554%3Bborder-radius%3A7px%3Bpadding%3A6px%208px%3Bfont-size%3A11px%3Bcursor%3Apointer%3B%22%3E%0A%F0%9F%93%9C%20Pencereyi%20Kayd%C4%B1r%20(Takip%C3%A7iler)%0A%3C%2Fbutton%3E%0A%3Cbutton%20id%3D%22ic-dom-following-btn%22%0Astyle%3D%22flex%3A1%3Bbackground%3A%232a313c%3Bcolor%3A%23e0e6f0%3Bborder%3A1px%20solid%20%233c4554%3Bborder-radius%3A7px%3Bpadding%3A6px%208px%3Bfont-size%3A11px%3Bcursor%3Apointer%3B%22%3E%0A%F0%9F%93%9C%20Pencereyi%20Kayd%C4%B1r%20(Takip%20Edilen)%0A%3C%2Fbutton%3E%0A%3C%2Fdiv%3E%0A%3Cdiv%20style%3D%22display%3Aflex%3Bgap%3A6px%3Bmargin-top%3A4px%3B%22%3E%0A%3Cbutton%20id%3D%22ic-export-btn%22%0Astyle%3D%22flex%3A1%3Bbackground%3A%23009975%3Bcolor%3A%23fff%3Bborder%3Anone%3Bborder-radius%3A8px%3Bpadding%3A8px%2010px%3Bfont-weight%3A600%3Bcursor%3Apointer%3B%22%3E%0A%F0%9F%92%BE%20JSON%20%C4%B0ndir%20%26%20Panoya%20Kopyala%0A%3C%2Fbutton%3E%0A%3Cbutton%20id%3D%22ic-stop-btn%22%20disabled%0Astyle%3D%22background%3A%238f3232%3Bcolor%3A%23fff%3Bborder%3Anone%3Bborder-radius%3A8px%3Bpadding%3A8px%2012px%3Bfont-weight%3A600%3Bcursor%3Anot-allowed%3Bopacity%3A0.5%3B%22%3E%0ADurdur%0A%3C%2Fbutton%3E%0A%3C%2Fdiv%3E%0A%3C%2Fdiv%3E%0A%60%3B%0Adocument.body.appendChild(panel)%3B%0Aconst%20els%20%3D%20%7B%0AcloseBtn%3A%20document.getElementById(%22ic-close-btn%22)%2C%0AfollowersCount%3A%20document.getElementById(%22ic-followers-count%22)%2C%0AfollowingCount%3A%20document.getElementById(%22ic-following-count%22)%2C%0AprogressBar%3A%20document.getElementById(%22ic-progress-bar%22)%2C%0AstatusText%3A%20document.getElementById(%22ic-status-text%22)%2C%0AautoBtn%3A%20document.getElementById(%22ic-auto-btn%22)%2C%0AdomFollowersBtn%3A%20document.getElementById(%22ic-dom-followers-btn%22)%2C%0AdomFollowingBtn%3A%20document.getElementById(%22ic-dom-following-btn%22)%2C%0AexportBtn%3A%20document.getElementById(%22ic-export-btn%22)%2C%0AstopBtn%3A%20document.getElementById(%22ic-stop-btn%22)%0A%7D%3B%0Afunction%20setStatus(msg%2C%20color%20%3D%20%22%23d6deeb%22)%20%7B%0Aels.statusText.textContent%20%3D%20msg%3B%0Aels.statusText.style.color%20%3D%20color%3B%0A%7D%0Afunction%20updateCounters(percent%20%3D%20null)%20%7B%0Aels.followersCount.textContent%20%3D%20String(state.followers.size)%3B%0Aels.followingCount.textContent%20%3D%20String(state.following.size)%3B%0Aif%20(typeof%20percent%20%3D%3D%3D%20%22number%22)%20%7B%0Aconst%20clamped%20%3D%20Math.max(0%2C%20Math.min(100%2C%20Math.round(percent)))%3B%0Aels.progressBar.style.width%20%3D%20%60%24%7Bclamped%7D%25%60%3B%0A%7D%0A%7D%0Afunction%20setRunning(isRunning)%20%7B%0Astate.running%20%3D%20isRunning%3B%0Astate.abortRequested%20%3D%20false%3B%0Aels.autoBtn.disabled%20%3D%20isRunning%3B%0Aels.domFollowersBtn.disabled%20%3D%20isRunning%3B%0Aels.domFollowingBtn.disabled%20%3D%20isRunning%3B%0Aels.autoBtn.style.opacity%20%3D%20isRunning%20%3F%20%220.55%22%20%3A%20%221%22%3B%0Aels.domFollowersBtn.style.opacity%20%3D%20isRunning%20%3F%20%220.55%22%20%3A%20%221%22%3B%0Aels.domFollowingBtn.style.opacity%20%3D%20isRunning%20%3F%20%220.55%22%20%3A%20%221%22%3B%0Aels.stopBtn.disabled%20%3D%20!isRunning%3B%0Aels.stopBtn.style.opacity%20%3D%20isRunning%20%3F%20%221%22%20%3A%20%220.5%22%3B%0Aels.stopBtn.style.cursor%20%3D%20isRunning%20%3F%20%22pointer%22%20%3A%20%22not-allowed%22%3B%0A%7D%0Afunction%20buildPayload()%20%7B%0Areturn%20%7B%0Asource%3A%20%22insta_check_web_collector%22%2C%0Aversion%3A%20%223.1%22%2C%0Ausername%3A%20state.username%20%7C%7C%20%22instagram%22%2C%0Aexported_at%3A%20formatNowDate(true)%2C%0Afollowers%3A%20Array.from(state.followers.values())%2C%0Afollowing%3A%20Array.from(state.following.values())%0A%7D%3B%0A%7D%0Aasync%20function%20exportAndCopy(autoTriggered%20%3D%20false)%20%7B%0Aif%20(state.followers.size%20%3D%3D%3D%200%20%26%26%20state.following.size%20%3D%3D%3D%200)%20%7B%0Aif%20(!autoTriggered)%20%7B%0AsetStatus(%22Hen%C3%BCz%20toplanm%C4%B1%C5%9F%20veri%20yok.%20%C3%96nce%20tarama%20ba%C5%9Flat%C4%B1n.%22%2C%20%22%23ffbe76%22)%3B%0A%7D%0Areturn%3B%0A%7D%0Aconst%20payload%20%3D%20buildPayload()%3B%0Aconst%20jsonText%20%3D%20JSON.stringify(payload%2C%20null%2C%202)%3B%0Alet%20copied%20%3D%20false%3B%0Atry%20%7B%0Aif%20(navigator.clipboard%20%26%26%20navigator.clipboard.writeText)%20%7B%0Aawait%20navigator.clipboard.writeText(jsonText)%3B%0Acopied%20%3D%20true%3B%0A%7D%0A%7D%20catch%20(err)%20%7B%0Acopied%20%3D%20false%3B%0A%7D%0Aif%20(!copied)%20%7B%0Atry%20%7B%0Aconst%20ta%20%3D%20document.createElement(%22textarea%22)%3B%0Ata.value%20%3D%20jsonText%3B%0Ata.style.position%20%3D%20%22fixed%22%3B%0Ata.style.left%20%3D%20%22-9999px%22%3B%0Adocument.body.appendChild(ta)%3B%0Ata.focus()%3B%0Ata.select()%3B%0Acopied%20%3D%20document.execCommand(%22copy%22)%3B%0Ata.remove()%3B%0A%7D%20catch%20(e)%20%7B%0Acopied%20%3D%20false%3B%0A%7D%0A%7D%0Atry%20%7B%0Aconst%20blob%20%3D%20new%20Blob(%5BjsonText%5D%2C%20%7B%20type%3A%20%22application%2Fjson%3Bcharset%3Dutf-8%22%20%7D)%3B%0Aconst%20url%20%3D%20URL.createObjectURL(blob)%3B%0Aconst%20a%20%3D%20document.createElement(%22a%22)%3B%0Aa.href%20%3D%20url%3B%0Aa.download%20%3D%20%60instagram_web_rapor_%24%7BformatFileDate()%7D.json%60%3B%0Adocument.body.appendChild(a)%3B%0Aa.click()%3B%0Aa.remove()%3B%0AsetTimeout(()%20%3D%3E%20URL.revokeObjectURL(url)%2C%205000)%3B%0A%7D%20catch%20(err)%20%7B%0Aconsole.warn(%22Dosya%20indirme%20hatas%C4%B1%3A%22%2C%20err)%3B%0A%7D%0Aconst%20copyNote%20%3D%20copied%0A%3F%20%22Panoya%20kopyaland%C4%B1%20ve%20JSON%20dosyas%C4%B1%20indirildi!%22%0A%3A%20%22JSON%20dosyas%C4%B1%20indirildi%20(Pano%20i%C3%A7in%20sayfaya%20t%C4%B1klay%C4%B1p%20butona%20tekrar%20bas%C4%B1n).%22%3B%0AsetStatus(%0A%60%E2%9C%85%20Tamamland%C4%B1%20(%24%7Bstate.followers.size%7D%20takip%C3%A7i%2C%20%24%7Bstate.following.size%7D%20takip%20edilen).%20%24%7BcopyNote%7D%60%2C%0A%22%2300d2a0%22%0A)%3B%0A%7D%0Aasync%20function%20fetchFriendshipList(userId%2C%20endpointType%2C%20targetMap)%20%7B%0Aconst%20label%20%3D%20endpointType%20%3D%3D%3D%20%22followers%22%20%3F%20%22Takip%C3%A7iler%22%20%3A%20%22Takip%20edilenler%22%3B%0Alet%20nextMaxId%20%3D%20null%3B%0Alet%20step%20%3D%200%3B%0Awhile%20(!state.abortRequested%20%26%26%20step%20%3C%20CONFIG.MAX_STEPS_PER_RUN)%20%7B%0Astep%20%2B%3D%201%3B%0Aconst%20params%20%3D%20new%20URLSearchParams(%7B%20count%3A%20String(CONFIG.PAGE_SIZE)%20%7D)%3B%0Aif%20(endpointType%20%3D%3D%3D%20%22followers%22)%20%7B%0Aparams.set(%22search_surface%22%2C%20%22follow_list_page%22)%3B%0A%7D%0Aif%20(nextMaxId)%20%7B%0Aparams.set(%22max_id%22%2C%20String(nextMaxId))%3B%0A%7D%0Aconst%20url%20%3D%20%60https%3A%2F%2Fwww.instagram.com%2Fapi%2Fv1%2Ffriendships%2F%24%7BencodeURIComponent(userId)%7D%2F%24%7BendpointType%7D%2F%3F%24%7Bparams.toString()%7D%60%3B%0Aconst%20headers%20%3D%20%7B%0A%22x-ig-app-id%22%3A%20CONFIG.IG_APP_ID%2C%0A%22x-requested-with%22%3A%20%22XMLHttpRequest%22%0A%7D%3B%0Aconst%20csrf%20%3D%20getCookie(%22csrftoken%22)%3B%0Aif%20(csrf)%20%7B%0Aheaders%5B%22x-csrftoken%22%5D%20%3D%20csrf%3B%0A%7D%0Aconst%20response%20%3D%20await%20fetch(url%2C%20%7B%0Amethod%3A%20%22GET%22%2C%0Acredentials%3A%20%22include%22%2C%0Aheaders%0A%7D)%3B%0Aif%20(response.status%20%3D%3D%3D%20429)%20%7B%0Athrow%20new%20Error(%22Instagram%20h%C4%B1z%20s%C4%B1n%C4%B1r%C4%B1na%20(HTTP%20429)%20yakla%C5%9F%C4%B1ld%C4%B1.%20G%C3%BCvenlik%20i%C3%A7in%20i%C5%9Flem%20hemen%20durduruldu.%22)%3B%0A%7D%0Aif%20(response.status%20%3D%3D%3D%20401%20%7C%7C%20response.status%20%3D%3D%3D%20403)%20%7B%0Athrow%20new%20Error(%22Oturum%20do%C4%9Frulamas%C4%B1%20gerekli%20(HTTP%20%22%20%2B%20response.status%20%2B%20%22).%20L%C3%BCtfen%20Yedek%20Mod%20(Pencere%20Kayd%C4%B1r%C4%B1c%C4%B1)%20kullan%C4%B1n.%22)%3B%0A%7D%0Aif%20(!response.ok)%20%7B%0Athrow%20new%20Error(%60%C4%B0stek%20ba%C5%9Far%C4%B1s%C4%B1z%20oldu%20(HTTP%20%24%7Bresponse.status%7D).%20Yedek%20Modu%20deneyebilirsiniz.%60)%3B%0A%7D%0Aconst%20data%20%3D%20await%20response.json()%3B%0Aconst%20users%20%3D%20Array.isArray(data.users)%20%3F%20data.users%20%3A%20%5B%5D%3B%0Afor%20(const%20u%20of%20users)%20%7B%0Aif%20(u%20%26%26%20u.username)%20%7B%0Aconst%20entry%20%3D%20normalizeEntry(u.username)%3B%0AtargetMap.set(entry.username%2C%20entry)%3B%0A%7D%0A%7D%0Aconst%20expected%20%3D%20endpointType%20%3D%3D%3D%20%22followers%22%20%3F%20state.expectedFollowers%20%3A%20state.expectedFollowing%3B%0Alet%20pct%20%3D%20null%3B%0Aif%20(expected%20%26%26%20expected%20%3E%200)%20%7B%0Aconst%20base%20%3D%20endpointType%20%3D%3D%3D%20%22followers%22%20%3F%200%20%3A%2050%3B%0Apct%20%3D%20base%20%2B%20Math.min(50%2C%20(targetMap.size%20%2F%20expected)%20*%2050)%3B%0A%7D%20else%20%7B%0Apct%20%3D%20endpointType%20%3D%3D%3D%20%22followers%22%20%3F%20Math.min(45%2C%20step%20*%205)%20%3A%2050%20%2B%20Math.min(45%2C%20step%20*%205)%3B%0A%7D%0AupdateCounters(pct)%3B%0AnextMaxId%20%3D%20data.next_max_id%20%7C%7C%20null%3B%0Aif%20(!nextMaxId%20%7C%7C%20users.length%20%3D%3D%3D%200)%20%7B%0Abreak%3B%0A%7D%0Aconst%20countText%20%3D%20expected%20%3F%20%60%24%7BtargetMap.size%7D%2F%24%7Bexpected%7D%60%20%3A%20%60%24%7BtargetMap.size%7D%60%3B%0Aif%20(step%20%25%20CONFIG.BREAK_EVERY_STEPS%20%3D%3D%3D%200)%20%7B%0Aawait%20sleepWithJitter(%0ACONFIG.BREAK_MIN_MS%2C%0ACONFIG.BREAK_MAX_MS%2C%0A%60%24%7Blabel%7D%20okunuyor%3A%20%24%7BcountText%7D%20%E2%80%A2%20K%C4%B1sa%20g%C3%BCvenlik%20molas%C4%B1%60%0A)%3B%0A%7D%20else%20%7B%0Aawait%20sleepWithJitter(%0ACONFIG.API_MIN_DELAY_MS%2C%0ACONFIG.API_MAX_DELAY_MS%2C%0A%60%24%7Blabel%7D%20okunuyor%3A%20%24%7BcountText%7D%60%0A)%3B%0A%7D%0A%7D%0A%7D%0Aasync%20function%20runAutoReader()%20%7B%0Aconst%20userId%20%3D%20getCookie(%22ds_user_id%22)%3B%0Aif%20(!userId)%20%7B%0AsetStatus(%22Oturum%20%C3%A7erezi%20(ds_user_id)%20bulunamad%C4%B1.%20Instagram%27a%20giri%C5%9F%20yapt%C4%B1%C4%9F%C4%B1n%C4%B1zdan%20emin%20olun.%22%2C%20%22%23ff7675%22)%3B%0Areturn%3B%0A%7D%0AsetRunning(true)%3B%0Astate.followers.clear()%3B%0Astate.following.clear()%3B%0AupdateCounters(2)%3B%0Atry%20%7B%0Atry%20%7B%0AsetStatus(%22Hesap%20bilgileri%20okunuyor...%22)%3B%0Aconst%20infoRes%20%3D%20await%20fetch(%60https%3A%2F%2Fwww.instagram.com%2Fapi%2Fv1%2Fusers%2F%24%7BencodeURIComponent(userId)%7D%2Finfo%2F%60%2C%20%7B%0Amethod%3A%20%22GET%22%2C%0Acredentials%3A%20%22include%22%2C%0Aheaders%3A%20%7B%0A%22x-ig-app-id%22%3A%20CONFIG.IG_APP_ID%2C%0A%22x-requested-with%22%3A%20%22XMLHttpRequest%22%0A%7D%0A%7D)%3B%0Aif%20(infoRes.ok)%20%7B%0Aconst%20infoData%20%3D%20await%20infoRes.json()%3B%0Aif%20(infoData%20%26%26%20infoData.user)%20%7B%0Aif%20(infoData.user.username)%20%7B%0Astate.username%20%3D%20infoData.user.username%3B%0A%7D%0Astate.expectedFollowers%20%3D%20infoData.user.follower_count%20%7C%7C%20null%3B%0Astate.expectedFollowing%20%3D%20infoData.user.following_count%20%7C%7C%20null%3B%0A%7D%0A%7D%0A%7D%20catch%20(_)%20%7B%0A%7D%0Aif%20(!state.abortRequested)%20%7B%0Aawait%20sleepWithJitter(1200%2C%202200%2C%20%22Takip%C3%A7iler%20ba%C5%9Flat%C4%B1l%C4%B1yor%22)%3B%0Aawait%20fetchFriendshipList(userId%2C%20%22followers%22%2C%20state.followers)%3B%0A%7D%0Aif%20(!state.abortRequested)%20%7B%0Aawait%20sleepWithJitter(CONFIG.BREAK_MIN_MS%2C%20CONFIG.BREAK_MAX_MS%2C%20%22Takip%20edilenlere%20ge%C3%A7meden%20g%C3%BCvenlik%20molas%C4%B1%22)%3B%0Aawait%20fetchFriendshipList(userId%2C%20%22following%22%2C%20state.following)%3B%0A%7D%0Aif%20(state.abortRequested)%20%7B%0AsetStatus(%60%C4%B0%C5%9Flem%20durduruldu%20(%24%7Bstate.followers.size%7D%20takip%C3%A7i%2C%20%24%7Bstate.following.size%7D%20takip%20edilen).%60%2C%20%22%23ffbe76%22)%3B%0A%7D%20else%20%7B%0AupdateCounters(100)%3B%0Aawait%20exportAndCopy(true)%3B%0A%7D%0A%7D%20catch%20(err)%20%7B%0AsetStatus(%60%E2%9A%A0%EF%B8%8F%20%24%7Berr.message%7D%60%2C%20%22%23ff7675%22)%3B%0A%7D%20finally%20%7B%0AsetRunning(false)%3B%0A%7D%0A%7D%0Afunction%20findScrollableDialogBox()%20%7B%0Aconst%20dialog%20%3D%20document.querySelector(%27div%5Brole%3D%22dialog%22%5D%27)%3B%0Aif%20(!dialog)%20return%20null%3B%0Aconst%20candidates%20%3D%20dialog.querySelectorAll(%22div%22)%3B%0Alet%20best%20%3D%20null%3B%0Alet%20maxHeight%20%3D%200%3B%0Afor%20(const%20el%20of%20candidates)%20%7B%0Aconst%20style%20%3D%20window.getComputedStyle(el)%3B%0Aconst%20overflowY%20%3D%20style.overflowY%3B%0Aif%20((overflowY%20%3D%3D%3D%20%22auto%22%20%7C%7C%20overflowY%20%3D%3D%3D%20%22scroll%22)%20%26%26%20el.scrollHeight%20%3E%20el.clientHeight%20%2B%2020)%20%7B%0Aif%20(el.scrollHeight%20%3E%20maxHeight)%20%7B%0AmaxHeight%20%3D%20el.scrollHeight%3B%0Abest%20%3D%20el%3B%0A%7D%0A%7D%0A%7D%0Areturn%20best%20%7C%7C%20dialog%3B%0A%7D%0Afunction%20collectUsernamesFromDialog(dialog%2C%20targetMap)%20%7B%0Aconst%20links%20%3D%20dialog.querySelectorAll(%27a%5Bhref%5E%3D%22%2F%22%5D%27)%3B%0Alet%20added%20%3D%200%3B%0Afor%20(const%20link%20of%20links)%20%7B%0Aconst%20href%20%3D%20link.getAttribute(%22href%22)%20%7C%7C%20%22%22%3B%0Aconst%20match%20%3D%20href.match(%2F%5E%5C%2F(%5BA-Za-z0-9._%5D%2B)%5C%2F%3F%24%2F)%3B%0Aif%20(!match)%20continue%3B%0Aconst%20username%20%3D%20match%5B1%5D%3B%0Aif%20(RESERVED_PATHS.has(username.toLowerCase()))%20continue%3B%0Aif%20(username%20%3D%3D%3D%20state.username%20%26%26%20link.closest(%22header%22))%20continue%3B%0Aif%20(!targetMap.has(username))%20%7B%0AtargetMap.set(username%2C%20normalizeEntry(username))%3B%0Aadded%20%2B%3D%201%3B%0A%7D%0A%7D%0Areturn%20added%3B%0A%7D%0Aasync%20function%20runDomScroller(modeType)%20%7B%0Aconst%20dialog%20%3D%20document.querySelector(%27div%5Brole%3D%22dialog%22%5D%27)%3B%0Aif%20(!dialog)%20%7B%0AsetStatus(%22%E2%9A%A0%EF%B8%8F%20%C3%96nce%20profilinizden%20Takip%C3%A7iler%20veya%20Takip%20Edilenler%20penceresini%20a%C3%A7%C4%B1n.%22%2C%20%22%23ffbe76%22)%3B%0Areturn%3B%0A%7D%0Aconst%20label%20%3D%20modeType%20%3D%3D%3D%20%22followers%22%20%3F%20%22Takip%C3%A7iler%22%20%3A%20%22Takip%20Edilenler%22%3B%0Aconst%20targetMap%20%3D%20modeType%20%3D%3D%3D%20%22followers%22%20%3F%20state.followers%20%3A%20state.following%3B%0Aconst%20scrollBox%20%3D%20findScrollableDialogBox()%3B%0AsetRunning(true)%3B%0AtargetMap.clear()%3B%0AupdateCounters(5)%3B%0Alet%20stagnantRounds%20%3D%200%3B%0Alet%20step%20%3D%200%3B%0Atry%20%7B%0Awhile%20(!state.abortRequested%20%26%26%20step%20%3C%20CONFIG.MAX_STEPS_PER_RUN)%20%7B%0Astep%20%2B%3D%201%3B%0Aconst%20prevCount%20%3D%20targetMap.size%3B%0AcollectUsernamesFromDialog(dialog%2C%20targetMap)%3B%0Aconst%20newCount%20%3D%20targetMap.size%3B%0Aconst%20prevTop%20%3D%20scrollBox.scrollTop%3B%0Aconst%20jump%20%3D%20Math.max(320%2C%20Math.floor(scrollBox.clientHeight%20*%200.8))%3B%0AscrollBox.scrollBy(%7B%20top%3A%20jump%2C%20behavior%3A%20%22smooth%22%20%7D)%3B%0Aawait%20sleep(550)%3B%0AcollectUsernamesFromDialog(dialog%2C%20targetMap)%3B%0Aconst%20moved%20%3D%20Math.abs(scrollBox.scrollTop%20-%20prevTop)%20%3E%204%3B%0Aif%20(targetMap.size%20%3D%3D%3D%20prevCount%20%26%26%20!moved%20%26%26%20newCount%20%3D%3D%3D%20prevCount)%20%7B%0AstagnantRounds%20%2B%3D%201%3B%0A%7D%20else%20%7B%0AstagnantRounds%20%3D%200%3B%0A%7D%0AupdateCounters(Math.min(95%2C%2010%20%2B%20step%20*%203))%3B%0Aif%20(stagnantRounds%20%3E%3D%203)%20%7B%0Abreak%3B%0A%7D%0Aif%20(step%20%25%20CONFIG.BREAK_EVERY_STEPS%20%3D%3D%3D%200)%20%7B%0Aawait%20sleepWithJitter(%0ACONFIG.BREAK_MIN_MS%2C%0ACONFIG.BREAK_MAX_MS%2C%0A%60%24%7Blabel%7D%20kayd%C4%B1r%C4%B1l%C4%B1yor%3A%20%24%7BtargetMap.size%7D%20ki%C5%9Fi%20%E2%80%A2%20K%C4%B1sa%20mola%60%0A)%3B%0A%7D%20else%20%7B%0Aawait%20sleepWithJitter(%0ACONFIG.DOM_MIN_DELAY_MS%2C%0ACONFIG.DOM_MAX_DELAY_MS%2C%0A%60%24%7Blabel%7D%20kayd%C4%B1r%C4%B1l%C4%B1yor%3A%20%24%7BtargetMap.size%7D%20ki%C5%9Fi%60%0A)%3B%0A%7D%0A%7D%0AcollectUsernamesFromDialog(dialog%2C%20targetMap)%3B%0AupdateCounters(100)%3B%0Aif%20(state.abortRequested)%20%7B%0AsetStatus(%60Kayd%C4%B1rma%20durduruldu%20(%24%7Blabel%7D%3A%20%24%7BtargetMap.size%7D%20ki%C5%9Fi).%60%2C%20%22%23ffbe76%22)%3B%0A%7D%20else%20%7B%0AsetStatus(%0A%60%E2%9C%85%20%24%7Blabel%7D%20tamamland%C4%B1%20(%24%7BtargetMap.size%7D%20ki%C5%9Fi).%20%C4%B0sterseniz%20di%C4%9Fer%20pencereyi%20a%C3%A7%C4%B1p%20taray%C4%B1n%20veya%20%22JSON%20%C4%B0ndir%20%26%20Panoya%20Kopyala%22ya%20bas%C4%B1n.%60%2C%0A%22%2300d2a0%22%0A)%3B%0A%7D%0A%7D%20catch%20(err)%20%7B%0AsetStatus(%60%E2%9A%A0%EF%B8%8F%20Kayd%C4%B1rma%20hatas%C4%B1%3A%20%24%7Berr.message%7D%60%2C%20%22%23ff7675%22)%3B%0A%7D%20finally%20%7B%0AsetRunning(false)%3B%0A%7D%0A%7D%0Aels.closeBtn.addEventListener(%22click%22%2C%20()%20%3D%3E%20%7B%0Astate.abortRequested%20%3D%20true%3B%0Apanel.remove()%3B%0A%7D)%3B%0Aels.stopBtn.addEventListener(%22click%22%2C%20()%20%3D%3E%20%7B%0Astate.abortRequested%20%3D%20true%3B%0AsetStatus(%22G%C3%BCvenli%20durdurma%20isteniyor...%22%2C%20%22%23ffbe76%22)%3B%0A%7D)%3B%0Aels.autoBtn.addEventListener(%22click%22%2C%20()%20%3D%3E%20%7B%0Aif%20(!state.running)%20runAutoReader()%3B%0A%7D)%3B%0Aels.domFollowersBtn.addEventListener(%22click%22%2C%20()%20%3D%3E%20%7B%0Aif%20(!state.running)%20runDomScroller(%22followers%22)%3B%0A%7D)%3B%0Aels.domFollowingBtn.addEventListener(%22click%22%2C%20()%20%3D%3E%20%7B%0Aif%20(!state.running)%20runDomScroller(%22following%22)%3B%0A%7D)%3B%0Aels.exportBtn.addEventListener(%22click%22%2C%20()%20%3D%3E%20%7B%0AexportAndCopy(false)%3B%0A%7D)%3B%0A%7D)()%3B">
+                🛡️ Insta Rapor Çekici
+            </a>
+        </div>
+
+        <div class="steps">
+            <div class="step">
+                <h3>1. Tek Seferlik Yer İmi Ekleme</h3>
+                <p>Yukarıdaki <strong>🛡️ Insta Rapor Çekici</strong> butonunu tarayıcınızın üst kısmındaki Yer İmleri Çubuğuna sürükleyip bırakın.</p>
+            </div>
+            <div class="step">
+                <h3>2. Instagram'da Tek Tıkla Çalıştırma</h3>
+                <p><a href="https://www.instagram.com/" target="_blank" style="color:#7ecfff;">instagram.com</a> hesabınız açıkken yer imindeki <strong>🛡️ Insta Rapor Çekici</strong> butonuna tıklayın. Sağ altta güvenli panel açılır.</p>
+            </div>
+            <div class="step">
+                <h3>3. Veriyi Uygulamaya Aktarma</h3>
+                <p>Paneldeki <strong>⚡ Otomatik Güvenli Okuyucu</strong> bitince JSON otomatik indirilir ve panoya kopyalanır. Sonra <code>Baslat.bat</code> ile açtığınız uygulamada <strong>📥 Panodan Yapıştır ve Analiz Et</strong> butonuna basın.</p>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="copy-btn" class="btn btn-copy" type="button">📋 Alternatif: Kodu Panoya Kopyala</button>
+            <a class="btn btn-ig" href="https://www.instagram.com/" target="_blank">🌐 Instagram'ı Aç</a>
+            <span id="copy-status" class="status"></span>
+        </div>
+
+        <div class="safety">
+            <strong>Güvenlik Garantisi:</strong> Bu asistan %100 Sadece Okuma (Read-Only) modunda çalışır. Şifre istemez, otomatik takipten çıkma yapmaz ve sayfalar arası rastgele 2.2–4.5 saniye insani gecikme bırakır.
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const link = document.getElementById("bookmarklet-link");
+            const copyBtn = document.getElementById("copy-btn");
+            const status = document.getElementById("copy-status");
+
+            link.addEventListener("click", function (e) {
+                e.preventDefault();
+                status.textContent = "ℹ️ Tıklamak yerine bu butonu Yer İmleri Çubuğuna (Ctrl+Shift+B) sürükleyin.";
+            });
+
+            copyBtn.addEventListener("click", async function () {
+                const href = link.getAttribute("href") || "";
+                const rawCode = decodeURIComponent(href.slice("javascript:".length));
+                try {
+                    await navigator.clipboard.writeText(rawCode);
+                    status.textContent = "✅ Kod panoya kopyalandı! (F12 → Console'a yapıştırabilirsiniz)";
+                } catch (err) {
+                    const ta = document.createElement("textarea");
+                    ta.value = rawCode;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand("copy");
+                    ta.remove();
+                    status.textContent = "✅ Kod panoya kopyalandı!";
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

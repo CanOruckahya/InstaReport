@@ -1,4 +1,5 @@
 @echo off
+cd /d "%~dp0"
 setlocal
 
 :: Python kurulu mu kontrol et
@@ -21,7 +22,7 @@ python -m pip install --upgrade pip
 python -m pip install beautifulsoup4 matplotlib pillow
 
 :: Uygulama başlatılıyor
-echo [>] Uygulama başlatılıyor...
+echo [*] Uygulama baslatiliyor...
 python app.py
 
 pause

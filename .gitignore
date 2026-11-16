@@ -117,4 +117,11 @@ Thumbs.db
 
 # Project specific
 _insta_rapor_history.json
-*.zip 
+*.zip
+snapshots/
+followers_and_following/
+followers_*.html
+followers_*.json
+following.html
+following.json
+]
